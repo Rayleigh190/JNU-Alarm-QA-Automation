@@ -2,22 +2,31 @@ from pages.base_page import BasePage
 from appium.webdriver.common.appiumby import AppiumBy
 
 class SettingPage(BasePage):
-  notice_nav_title = (AppiumBy.ACCESSIBILITY_ID, 'notice_nav_title')
   tabbar_setting_button = (AppiumBy.ACCESSIBILITY_ID, 'tabbar_setting_button')
-  academic_setting_menu = (AppiumBy.ACCESSIBILITY_ID, '학사/장학 알림')
-  acdemic_switch = (AppiumBy.XPATH, '//android.view.View[@content-desc="학사 알림"]/android.widget.Switch')
+  home_setting_menu = (AppiumBy.ACCESSIBILITY_ID, '학사/장학 알림')
 
-  def click_setting_button(self):
+  def go_to_home_settings(self):
     self.click(self.tabbar_setting_button)
+    self.click(self.home_setting_menu)
 
-  def click_academic_setting_menu(self):
-    self.click(self.academic_setting_menu)
+  def get_switch(self, name):
+    if self.driver.capabilities['platformName'] == "Android":
+      return self.get_element((AppiumBy.XPATH, f'//android.view.View[@content-desc="{name}"]/android.widget.Switch'))
+    else:
+      return self.get_element((AppiumBy.XPATH, f'//XCUIElementTypeOther[@name="{name}"]/following-sibling::XCUIElementTypeSwitch'))
 
-  def toggle_academic_switch(self):
-    self.click(self.acdemic_switch)
+  def toggle_switch(self, name):
+    self.get_switch(name).click()
 
-  def is_academic_switch_on(self):
-    return self.get_element(self.acdemic_switch).get_attribute('checked') == 'true'
-
-  def is_academic_switch_off(self):
-    return self.get_element(self.acdemic_switch).get_attribute('checked') == 'false'
+  def is_switch_on(self, name):
+    if self.driver.capabilities['platformName'] == "Android":
+      return self.get_switch(name).get_attribute('checked') == 'true'
+    else:
+      return self.get_switch(name).get_attribute('value') == '1'
+  
+  def is_switch_off(self, name):
+    if self.driver.capabilities['platformName'] == "Android":
+      return self.get_switch(name).get_attribute('checked') == 'false'
+    else:
+      return self.get_switch(name).get_attribute('value') == '0'
+  
