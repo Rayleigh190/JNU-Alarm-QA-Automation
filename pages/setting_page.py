@@ -3,11 +3,10 @@ from appium.webdriver.common.appiumby import AppiumBy
 
 class SettingPage(BasePage):
   tabbar_setting_button = (AppiumBy.ACCESSIBILITY_ID, 'tabbar_setting_button')
-  home_setting_menu = (AppiumBy.ACCESSIBILITY_ID, '학사/장학 알림')
 
-  def go_to_home_settings(self):
+  def go_to_settings(self, accessibility_id):
     self.click(self.tabbar_setting_button)
-    self.click(self.home_setting_menu)
+    self.click((AppiumBy.ACCESSIBILITY_ID, accessibility_id))
 
   def get_switch(self, name):
     if self.driver.capabilities['platformName'] == "Android":

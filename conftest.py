@@ -4,7 +4,7 @@ from appium.options.android import UiAutomator2Options
 
 from pages.setting_page import SettingPage
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="module")
 def driver():
   platform = "Android"  # "iOS" or "Android"
 
@@ -41,7 +41,7 @@ def driver():
 
 
 @pytest.fixture(scope="module")
-def setting_page(driver):
+def setting_page(driver, request):
   page = SettingPage(driver)
-  page.go_to_home_settings()
+  page.go_to_settings(request.param)
   return page
