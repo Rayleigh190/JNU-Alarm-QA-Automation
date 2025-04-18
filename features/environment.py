@@ -4,7 +4,7 @@ from appium.options.android import UiAutomator2Options
 
 def before_all(context):
     # platform = os.getenv("PLATFORM", "Android")  # "iOS" or "Android"
-    platform = "iOS"  # "iOS" or "Android"
+    platform = "Android"  # "iOS" or "Android"
 
     if platform == "iOS":
         desired_caps = {
