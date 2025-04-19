@@ -31,7 +31,7 @@ def driver():
     }
 
   driver = webdriver.Remote("http://localhost:4723", options=UiAutomator2Options().load_capabilities(desired_caps))
-  driver.implicitly_wait(10) 
+  # driver.implicitly_wait(10) 
   yield driver
   if platform == "Android":
     driver.terminate_app("com.jnu_alarm.android")
