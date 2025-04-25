@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from appium.webdriver.common.appiumby import AppiumBy
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 class SettingPage(BasePage):
   tabbar_setting_button = (AppiumBy.ACCESSIBILITY_ID, 'tabbar_setting_button')
@@ -16,7 +16,7 @@ class SettingPage(BasePage):
           return self.get_element((AppiumBy.XPATH, f'//android.view.View[@content-desc="{name}"]/android.widget.Switch'), timeout=2)
         else:
           return self.get_element((AppiumBy.XPATH, f'//XCUIElementTypeOther[@name="{name}"]/following-sibling::XCUIElementTypeSwitch'), timeout=2)
-      except TimeoutException:
+      except TimeoutException or NoSuchElementException:
         self.scroll_to_element(name)
     raise Exception(f"'{name}'을 찾지 못함.")
 

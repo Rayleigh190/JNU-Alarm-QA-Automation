@@ -37,7 +37,7 @@ class BasePage:
   
   def scroll_to_element(self, locator):
     if self.driver.capabilities['platformName'] == "Android":
-      self.scroll_into_view(locator=locator, max_scrolls=5, steps=130)
+      self.scroll_into_view(locator=locator, max_scrolls=5, steps=200)
     else:
       self.driver.execute_script("mobile: scroll", {"direction": "down", "predicateString": f'name == "{locator}"'})
   
